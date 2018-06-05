@@ -4,6 +4,7 @@
 
 var friendData = require('../data/friends');
 
+
 module.exports = function (app) {
     app.get('/api/friends', (req, res) => {
         res.json(friendData);
@@ -11,12 +12,12 @@ module.exports = function (app) {
     app.post('/api/friends', (req, res) => {
         var bestFriend = {};
         var user = req.body;
-        var userAnswers = req.body.Answers;
-
+        var userAnswers = req.body.answers;
+        
         var lowestFriendScore = 10000;
 
         friendData.forEach((friend) => {
-            var friendScore = getFriendScore(userAnswers, friendAnswers);
+            var friendScore = getFriendScore(userAnswers, friend.answers);
            if (friendScore < lowestFriendScore) {
             lowestFriendScore = friendScore;
             bestFriend = friend;
@@ -24,6 +25,7 @@ module.exports = function (app) {
            }
         });
         
+        console.log(userAnswers);        
         friendData.push(user);
         res.json(bestFriend);
         
@@ -31,9 +33,11 @@ module.exports = function (app) {
 };
 
 function getFriendScore(userAnswers, friendAnswers) {
-    var score = 0;  
+    var score = 0;
     for (var i = 0; i < userAnswers.length; i++) {
-        score += Math.abs(parseint(userAnswers[i]) - parseInt(friendAnswers[i]));
+        score += Math.abs(parseInt(userAnswers[i]) - parseInt(friendAnswers[i]));
+        
     }
+    console.log(score);
     return score;
 }
