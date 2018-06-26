@@ -3,7 +3,7 @@ var express = require('express'); //npm install express
 var bodyParser = require('body-parser'); //npm install body-parser
 var path = require('path'); // npm install path
 
-//port number & express setup
+//port & express setup
 var app = express();
 var PORT = process.env.PORT || 3360;
 
